@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,6 +59,7 @@ fun FormScreen(
 
         error?.let {
             Text(
+                modifier = Modifier.testTag("errorField"),
                 text = it,
                 color = Color.Red
             )
@@ -68,6 +70,7 @@ fun FormScreen(
             value = int1,
             onValueChange = { viewModel.onInt1Changed(it) },
             onlyNumbers = true,
+            testTag = "int1TextField",
         )
 
         TextFieldWithLabel(
@@ -75,18 +78,21 @@ fun FormScreen(
             value = int2,
             onValueChange = { viewModel.onInt2Changed(it) },
             onlyNumbers = true,
+            testTag = "int2TextField",
         )
 
         TextFieldWithLabel(
             label = stringResource(R.string.word_1),
             value = word1,
-            onValueChange = { viewModel.onWord1Changed(it) }
+            onValueChange = { viewModel.onWord1Changed(it) },
+            testTag = "word1TextField",
         )
 
         TextFieldWithLabel(
             label = stringResource(R.string.word_2),
             value = word2,
-            onValueChange = { viewModel.onWord2Changed(it) }
+            onValueChange = { viewModel.onWord2Changed(it) },
+            testTag = "word2TextField",
         )
 
         TextFieldWithLabel(
@@ -94,10 +100,11 @@ fun FormScreen(
             value = limit,
             onValueChange = { viewModel.onLimitChanged(it) },
             onlyNumbers = true,
+            testTag = "limitTextField",
         )
 
         Button(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(10.dp).testTag("playButton"),
             onClick = {
                 viewModel.onPlay()
                 if (error == null) {
@@ -118,9 +125,12 @@ fun TextFieldWithLabel(
     value: String?,
     onValueChange: (String) -> Unit,
     onlyNumbers: Boolean = false,
+    testTag: String = "",
 ) {
     TextField(
-        modifier = modifier.padding(5.dp),
+        modifier = modifier
+            .padding(5.dp)
+            .testTag(testTag),
         value = value ?: "",
         onValueChange = onValueChange,
         label = { Text(text = "$label :") },
