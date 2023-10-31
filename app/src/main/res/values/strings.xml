@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fizz buzz</string>
+    <string name="int_1">entier 1</string>
+    <string name="int_2">entier 2</string>
+    <string name="word_1">mot 1</string>
+    <string name="word_2">mot 2</string>
+    <string name="limit">limite</string>
+    <string name="play">JOUER</string>
+</resources>
