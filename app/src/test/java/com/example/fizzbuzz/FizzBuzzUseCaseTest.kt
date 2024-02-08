@@ -1,7 +1,8 @@
 package com.example.fizzbuzz
 
-import com.example.fizzbuzz.domain.models.FormData
+import com.example.fizzbuzz.domain.models.Data
 import com.example.fizzbuzz.domain.usecases.FizzBuzzUseCase
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -14,11 +15,13 @@ class FizzBuzzUseCaseTest {
     @MethodSource("testData")
     fun testFizzBuzz(
         int1: Int, int2: Int, word1: String, word2: String, limit: Int, expectedResults: String
-    ) {
+    ) = runBlocking {
         val useCase = FizzBuzzUseCase()
-        val results = useCase(FormData(int1, int2, word1, word2, limit))
-
-        assertEquals(expectedResults, results.joinToString(","))
+        var result = emptyList<String>()
+        useCase(Data(int1, int2, word1, word2, limit)).collect {
+            result = it
+        }
+        assertEquals(expectedResults, result.joinToString(","))
     }
 
     companion object {

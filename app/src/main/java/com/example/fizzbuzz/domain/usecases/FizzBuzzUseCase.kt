@@ -1,9 +1,11 @@
 package com.example.fizzbuzz.domain.usecases
 
-import com.example.fizzbuzz.domain.models.FormData
+import com.example.fizzbuzz.domain.models.Data
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class FizzBuzzUseCase {
-    operator fun invoke(data: FormData): List<String> {
+    operator fun invoke(data: Data): Flow<List<String>> = flow {
         val list = mutableListOf<String>()
 
         for (i in 1..data.limit) {
@@ -18,8 +20,7 @@ class FizzBuzzUseCase {
             }
 
             list.add(item)
+            emit(list.toList())
         }
-        return list
     }
-
 }

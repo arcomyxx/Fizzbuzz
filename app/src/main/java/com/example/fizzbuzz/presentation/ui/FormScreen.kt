@@ -37,11 +37,7 @@ fun FormScreen(
     viewModel: ViewModel,
     navController: NavHostController = rememberNavController(),
 ) {
-    val int1 by remember { viewModel.int1 }
-    val int2 by remember { viewModel.int2 }
-    val word1 by remember { viewModel.word1 }
-    val word2 by remember { viewModel.word2 }
-    val limit by remember { viewModel.limit }
+    val formData by remember { viewModel.formData }
     val error by remember { viewModel.error }
 
 
@@ -67,7 +63,7 @@ fun FormScreen(
 
         TextFieldWithLabel(
             label = stringResource(R.string.int_1),
-            value = int1,
+            value = formData.int1.value,
             onValueChange = { viewModel.onInt1Changed(it) },
             onlyNumbers = true,
             testTag = "int1TextField",
@@ -75,7 +71,7 @@ fun FormScreen(
 
         TextFieldWithLabel(
             label = stringResource(R.string.int_2),
-            value = int2,
+            value = formData.int2.value,
             onValueChange = { viewModel.onInt2Changed(it) },
             onlyNumbers = true,
             testTag = "int2TextField",
@@ -83,28 +79,30 @@ fun FormScreen(
 
         TextFieldWithLabel(
             label = stringResource(R.string.word_1),
-            value = word1,
+            value = formData.word1.value,
             onValueChange = { viewModel.onWord1Changed(it) },
             testTag = "word1TextField",
         )
 
         TextFieldWithLabel(
             label = stringResource(R.string.word_2),
-            value = word2,
+            value = formData.word2.value,
             onValueChange = { viewModel.onWord2Changed(it) },
             testTag = "word2TextField",
         )
 
         TextFieldWithLabel(
             label = stringResource(R.string.limit),
-            value = limit,
+            value = formData.limit.value,
             onValueChange = { viewModel.onLimitChanged(it) },
             onlyNumbers = true,
             testTag = "limitTextField",
         )
 
         Button(
-            modifier = Modifier.padding(10.dp).testTag("playButton"),
+            modifier = Modifier
+                .padding(10.dp)
+                .testTag("playButton"),
             onClick = {
                 viewModel.onPlay()
                 if (error == null) {
